@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.leksin.app.ui.components.LeksinPillButton
+import com.leksin.app.ui.screens.child.ChildMainScreen
 import com.leksin.app.ui.theme.LeksinPrimary
 import com.leksin.app.ui.theme.Spacing
 
@@ -99,36 +100,44 @@ fun AuthFlow(
         is AuthScreenState.Success -> {
             onAuthSuccess?.invoke(state.role, state.username)
 
-            // Default Success View
-            Surface(
-                modifier = modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(Spacing.xxl),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+            if (state.role.equals("CHILD", ignoreCase = true)) {
+                ChildMainScreen(
+                    modifier = modifier,
+                    onStartGameSession = {
+                        // TODO: Handle start game session
+                    }
+                )
+            } else {
+                Surface(
+                    modifier = modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
                 ) {
-                    Text(
-                        text = "Selamat Datang!",
-                        style = MaterialTheme.typography.headlineLarge.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = LeksinPrimary
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(Spacing.xxl),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Selamat Datang Orang Tua!",
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = LeksinPrimary
+                            )
                         )
-                    )
-                    Spacer(modifier = Modifier.height(Spacing.sm))
-                    Text(
-                        text = "Logged in as ${state.username} (${state.role})",
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 18.sp
-                    )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    LeksinPillButton(
-                        text = "Kembali ke Awal",
-                        onClick = { viewModel.navigateTo(AuthScreenState.RoleSelection) }
-                    )
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+                        Text(
+                            text = "Logged in as ${state.username} (${state.role})",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 18.sp
+                        )
+                        Spacer(modifier = Modifier.height(32.dp))
+                        LeksinPillButton(
+                            text = "Keluar / Kembali",
+                            onClick = { viewModel.navigateTo(AuthScreenState.RoleSelection) }
+                        )
+                    }
                 }
             }
         }

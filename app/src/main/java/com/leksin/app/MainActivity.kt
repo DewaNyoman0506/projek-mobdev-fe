@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.leksin.app.ui.screens.auth.AuthFlow
+import com.leksin.app.ui.screens.child.ChildMainScreen
 import com.leksin.app.ui.theme.LeksinTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             LeksinTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AuthFlow(modifier = Modifier.padding(innerPadding))
+                    // Langsung ke Halaman Anak (Child Dashboard) untuk testing tanpa login
+                    ChildMainScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        onStartGameSession = {
+                            // TODO: Mulai sesi permainan
+                        }
+                    )
                 }
             }
         }
@@ -29,8 +35,10 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun AuthFlowPreview() {
+fun ChildMainPreview() {
     LeksinTheme {
-        AuthFlow()
+        ChildMainScreen(
+            onStartGameSession = {}
+        )
     }
 }

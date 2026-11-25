@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.components
+package com.leksin.app.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import inyo.pam.leksin.ui.theme.Spacing
-import inyo.pam.leksin.ui.theme.leksin
+import com.leksin.app.ui.theme.Spacing
+import com.leksin.app.ui.theme.leksin
 
 // Textfield
 

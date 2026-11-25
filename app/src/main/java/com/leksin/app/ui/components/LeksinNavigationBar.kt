@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.components
+package com.leksin.app.ui.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import inyo.pam.leksin.ui.theme.Sizes
+import com.leksin.app.ui.theme.Sizes
 
 data class LeksinNavItem(val label: String, val icon: ImageVector)
 

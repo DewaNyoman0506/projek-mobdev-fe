@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.components
+package com.leksin.app.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -8,8 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import inyo.pam.leksin.ui.theme.LeksinCardShape
-import inyo.pam.leksin.ui.theme.Spacing
+import com.leksin.app.ui.theme.LeksinCardShape
+import com.leksin.app.ui.theme.Spacing
 
 // Contoh stat ortu
 

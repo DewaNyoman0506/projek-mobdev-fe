@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.components
+package com.leksin.app.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import inyo.pam.leksin.ui.theme.Spacing
+import com.leksin.app.ui.theme.Spacing
 
 // 6 Digit kotak
 @Composable

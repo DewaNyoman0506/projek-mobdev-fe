@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.components
+package com.leksin.app.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,8 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import inyo.pam.leksin.ui.theme.Sizes
-import inyo.pam.leksin.ui.theme.leksin
+import com.leksin.app.ui.theme.Sizes
+import com.leksin.app.ui.theme.leksin
 
 // Button n sejenis
 

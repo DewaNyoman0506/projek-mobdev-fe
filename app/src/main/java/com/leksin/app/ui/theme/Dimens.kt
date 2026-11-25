@@ -1,4 +1,4 @@
-package inyo.pam.leksin.ui.theme
+package com.leksin.app.ui.theme
 
 import androidx.compose.ui.unit.dp
 

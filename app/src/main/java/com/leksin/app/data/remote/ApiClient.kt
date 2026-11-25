@@ -2,6 +2,7 @@ package com.leksin.app.data.remote
 
 import android.content.Context
 import com.google.gson.Gson
+import com.leksin.app.BuildConfig
 import com.leksin.app.data.local.TokenManager
 import com.leksin.app.data.remote.model.ProblemDetail
 import okhttp3.OkHttpClient
@@ -10,56 +11,70 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.cancellation.CancellationException
 
 object ApiClient {
 
-    // Const Base URL
     const val BASE_URL_EMULATOR = "http://10.0.2.2:8080/"
-    const val BASE_URL_PRODUCTION = "https://leksin-backend.onrender.com/" // Update ke domain kalo ada
 
-    // Base URL Aktif
-    var currentBaseUrl: String = BASE_URL_EMULATOR
+    // TODO: Plis ganti dengan domain Render yang sebenarnya, lalu samakan di build.gradle.kts
+    const val BASE_URL_PRODUCTION = "https://leksin-backend.onrender.com/"
 
-    private var retrofit: Retrofit? = null
-    private var apiService: LeksinApi? = null
+    /** Default dari BuildConfig: debug -> emulator, release -> production. */
+    @Volatile
+    var currentBaseUrl: String = BuildConfig.BASE_URL
+        private set
+
+    private val lock = Any()
     private val gson = Gson()
 
-    /**
-     * Helper u/ set custom LAN IP
-     * Contoj: setCustomLanIp("192.168.1.50") -> http://192.168.1.50:8080/
-     */
-    fun setCustomLanIp(ipAddress: String, port: Int = 8080) {
-        val cleanIp = ipAddress.trim().removePrefix("http://").removePrefix("https://").removeSuffix("/")
-        currentBaseUrl = "http://$cleanIp:$port/"
-        resetClient()
-    }
+    @Volatile private var apiService: LeksinApi? = null
+    @Volatile private var tokenManagerInstance: TokenManager? = null
 
-    /**
-     * Switch ke Base URL manual
-     */
-    fun setBaseUrl(url: String) {
-        currentBaseUrl = if (url.endsWith("/")) url else "$url/"
-        resetClient()
-    }
+    /** Satu instance TokenManager dipakai bersama oleh interceptor dan repository. */
+    fun tokenManager(context: Context): TokenManager =
+        tokenManagerInstance ?: synchronized(lock) {
+            tokenManagerInstance
+                ?: TokenManager(context.applicationContext).also { tokenManagerInstance = it }
+        }
 
-    private fun resetClient() {
-        retrofit = null
-        apiService = null
-    }
-
-    fun getApiService(context: Context): LeksinApi {
-        return apiService ?: synchronized(this) {
+    fun getApiService(context: Context): LeksinApi =
+        apiService ?: synchronized(lock) {
             apiService ?: buildRetrofit(context).create(LeksinApi::class.java).also {
                 apiService = it
             }
         }
+
+    /**
+     * Khusus debug: arahin ke backend di LAN, mis. setCustomLanIp("192.168.1.50")..
+     */
+    fun setCustomLanIp(ipAddress: String, port: Int = 8080) {
+        if (!BuildConfig.DEBUG) return
+        val cleanIp = ipAddress.trim()
+            .removePrefix("http://")
+            .removePrefix("https://")
+            .removeSuffix("/")
+        setBaseUrl("http://$cleanIp:$port/")
+    }
+
+    fun setBaseUrl(url: String) {
+        synchronized(lock) {
+            currentBaseUrl = if (url.endsWith("/")) url else "$url/"
+            apiService = null
+        }
     }
 
     private fun buildRetrofit(context: Context): Retrofit {
-        val tokenManager = TokenManager(context.applicationContext)
+        val tokenManager = tokenManager(context)
 
+        // BODY akan mencetak password, OTP, dan JWT ke logcat -> jangan dipakai.
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BASIC
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+            redactHeader("Authorization")
         }
 
         val okHttpClient = OkHttpClient.Builder()
@@ -70,46 +85,40 @@ object ApiClient {
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
 
-        val instance = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(currentBaseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        retrofit = instance
-        return instance
     }
 
     /**
-     * Suspend API
+     * Membungkus panggilan API menjadi [NetworkResult].
+     * CancellationException WAJIB dilempar ulang supaya coroutine yang dibatalkan
+     * (mis. layar ditutup) benar-benar berhenti.
      */
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
         return try {
             NetworkResult.Success(apiCall())
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: HttpException) {
-            val statusCode = e.code()
-            val problemDetail = parseProblemDetail(e)
             NetworkResult.Error(
-                statusCode = statusCode,
-                problemDetail = problemDetail
+                statusCode = e.code(),
+                problemDetail = parseProblemDetail(e)
             )
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
             NetworkResult.Exception(e)
         }
     }
 
+    /** Body error bisa kosong (mis. 401 dari filter keamanan) atau bukan JSON -> null. */
     private fun parseProblemDetail(httpException: HttpException): ProblemDetail? {
         return try {
-            val errorBodyString = httpException.response()?.errorBody()?.string()
-            if (!errorBodyString.isNull_OrBlank()) {
-                gson.fromJson(errorBodyString, ProblemDetail::class.java)
-            } else {
-                null
-            }
+            val body = httpException.response()?.errorBody()?.string()
+            if (body.isNullOrBlank()) null else gson.fromJson(body, ProblemDetail::class.java)
         } catch (e: Exception) {
             null
         }
     }
-
-    private fun String?.isNull_OrBlank(): Boolean = this == null || this.trim().isEmpty()
 }

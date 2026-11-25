@@ -17,7 +17,6 @@ import com.leksin.app.data.remote.model.MessageResponse
 import com.leksin.app.data.remote.model.ParentLoginRequest
 import com.leksin.app.data.remote.model.ParentRegisterRequest
 import com.leksin.app.data.remote.model.ParentResponse
-import retrofit2.Response
 
 class LeksinRepository(context: Context) {
 
@@ -69,7 +68,7 @@ class LeksinRepository(context: Context) {
         }
     }
 
-    suspend fun deleteChild(childId: String): NetworkResult<Response<Unit>> {
+    suspend fun deleteChild(childId: String): NetworkResult<Unit> {
         return ApiClient.safeApiCall {
             api.deleteChild(childId)
         }

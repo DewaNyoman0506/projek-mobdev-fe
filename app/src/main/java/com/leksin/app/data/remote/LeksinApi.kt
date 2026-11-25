@@ -12,7 +12,6 @@ import com.leksin.app.data.remote.model.MessageResponse
 import com.leksin.app.data.remote.model.ParentLoginRequest
 import com.leksin.app.data.remote.model.ParentRegisterRequest
 import com.leksin.app.data.remote.model.ParentResponse
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -44,10 +43,12 @@ interface LeksinApi {
         @Body request: ChildCreateRequest
     ): ChildResponse
 
+    // Return Unit (bukan Response<Unit>) supaya 403/404 tetap dilempar sebagai
+    // HttpException dan ditangkap safeApiCall. Retrofit menangani body kosong (204).
     @DELETE("api/parent/children/{childId}")
     suspend fun deleteChild(
         @Path("childId") childId: String
-    ): Response<Unit>
+    )
 
     @POST("api/child/auth/request-otp")
     suspend fun requestChildOtp(

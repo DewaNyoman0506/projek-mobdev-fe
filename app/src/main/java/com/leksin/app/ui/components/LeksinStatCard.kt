@@ -46,3 +46,19 @@ fun StageCard(done: Int, total: Int, modifier: Modifier = Modifier) = LeksinStat
     contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
     modifier = modifier,
 )
+
+@Composable
+fun MeanStarCard(mean: Double, modifier: Modifier = Modifier) = LeksinStatCard(
+    label = "Rata-rata Bintang", value = "$mean", unit = "",
+    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    modifier = modifier,
+)
+
+@Composable
+fun MeanTryCard(mean: Double, modifier: Modifier = Modifier) = LeksinStatCard(
+    label = "Rata-rata Percobaan", value = "$mean x", unit = "",
+    containerColor = MaterialTheme.colorScheme.primary,
+    contentColor = MaterialTheme.colorScheme.onPrimary,
+    modifier = modifier,
+)

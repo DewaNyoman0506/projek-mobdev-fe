@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,8 +34,11 @@ import com.leksin.app.ui.theme.Spacing
 @Composable
 fun ChildHomeTab(
     onPlayClick: () -> Unit,
+    onScanClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
+
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.gradien),
@@ -45,6 +50,7 @@ fun ChildHomeTab(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(scrollState)
                 .padding(Spacing.xl),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -84,11 +90,10 @@ fun ChildHomeTab(
 
             Spacer(modifier = Modifier.height(Spacing.lg))
 
-            // MASIH PLACEHOLDER IMAGE
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(190.dp)
                     .clip(RoundedCornerShape(24.dp))
                     .clickable(onClick = onPlayClick),
                 color = LeksinPrimary,
@@ -115,6 +120,45 @@ fun ChildHomeTab(
                         Spacer(modifier = Modifier.height(Spacing.sm))
                         Text(
                             text = "Ketuk untuk Mulai Bermain",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(Spacing.xl))
+
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(170.dp)
+                    .clip(RoundedCornerShape(24.dp))
+                    .clickable(onClick = onScanClick),
+                color = LeksinPrimary,
+                shadowElevation = 2.dp
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp)
+                        .clip(RoundedCornerShape(18.dp))
+                        .background(LeksinSecondary),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "📷 🤖 [ Bantuan Belajar OCR ]",
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = LeksinPrimary
+                        )
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+                        Text(
+                            text = "Pindai Tulisan Tangan Huruf Anak dengan Kamera",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

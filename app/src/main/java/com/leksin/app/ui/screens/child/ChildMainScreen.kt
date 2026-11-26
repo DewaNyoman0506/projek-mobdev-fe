@@ -25,6 +25,7 @@ fun ChildMainScreen(
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
     var showLevelSelection by remember { mutableStateOf(false) }
+    var showScanner by remember { mutableStateOf(false) }
     var activeStage by remember { mutableStateOf<String?>(null) }
 
     val navItems = listOf(
@@ -35,6 +36,12 @@ fun ChildMainScreen(
     )
 
     when {
+        showScanner -> {
+            ScanLetterScreen(
+                modifier = modifier,
+                onBackClick = { showScanner = false }
+            )
+        }
         activeStage != null -> {
             ChildGameStageScreen(
                 stageId = activeStage!!,
@@ -60,7 +67,10 @@ fun ChildMainScreen(
                         .fillMaxSize()
                 ) {
                     when (selectedTab) {
-                        0 -> ChildHomeTab(onPlayClick = { showLevelSelection = true })
+                        0 -> ChildHomeTab(
+                            onPlayClick = { showLevelSelection = true },
+                            onScanClick = { showScanner = true }
+                        )
                         1 -> ChildCollectionsTab()
                         2 -> ChildStreaksTab()
                         3 -> ChildSettingsTab()

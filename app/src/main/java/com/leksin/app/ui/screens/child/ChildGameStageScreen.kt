@@ -150,7 +150,7 @@ fun ChildGameStageScreen(
     var showGameOverDialog by remember { mutableStateOf(false) }
     var feedbackMessage by remember { mutableStateOf<String?>(null) }
 
-    // Floating animation for clouds
+    // Anim awan
     val infiniteTransition = rememberInfiniteTransition(label = "cloudFloat")
     val cloudOffset1 by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -174,8 +174,15 @@ fun ChildGameStageScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFFFDFBEF))
     ) {
+        // Gradient Background
+        Image(
+            painter = painterResource(id = R.drawable.gradien),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
         // Decorative Sun
         Image(
             painter = painterResource(id = R.drawable.sun),
@@ -258,7 +265,7 @@ fun ChildGameStageScreen(
 
             Spacer(modifier = Modifier.height(Spacing.xl))
 
-            // Target Image (Dynamic per stage config)
+            // Target Image (Per stage config)
             Surface(
                 modifier = Modifier.size(150.dp),
                 shape = CircleShape,
@@ -280,7 +287,7 @@ fun ChildGameStageScreen(
 
             Spacer(modifier = Modifier.height(Spacing.xl))
 
-            // Answer Slots (Adaptive size based on word length)
+            // Answer Slots (Adaptive semoga aja gak break)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
                 modifier = Modifier.padding(vertical = Spacing.md)

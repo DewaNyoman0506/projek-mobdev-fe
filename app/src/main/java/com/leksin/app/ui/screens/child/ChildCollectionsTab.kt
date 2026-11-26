@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -75,103 +76,120 @@ fun ChildCollectionsTab(
 
     var lockedCatToInspect by remember { mutableStateOf<CatCollectionItem?>(null) }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color(0xFFFDFBEF))
-            .padding(Spacing.xl),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Header title card
-        Surface(
+    Box(modifier = modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.awan1),
+            contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(72.dp),
-            shape = RoundedCornerShape(24.dp),
-            color = Color.White,
-            shadowElevation = 2.dp
+                .align(Alignment.BottomCenter),
+            contentScale = ContentScale.FillWidth
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.gradien),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(Spacing.xl),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
+            // Header title card
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(72.dp),
+                shape = RoundedCornerShape(24.dp),
+                color = Color.White,
+                shadowElevation = 2.dp
             ) {
-                Text(
-                    text = "Collections",
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp
-                    ),
-                    color = LeksinPrimary
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(Spacing.xl))
-
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(Spacing.md)
-        ) {
-            items(cats) { cat ->
-                val unlocked = CatCollectionPrefs.isUnlocked(context, cat.stageId)
-
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(enabled = !unlocked) {
-                            if (!unlocked) {
-                                lockedCatToInspect = cat
-                            }
-                        },
-                    shape = RoundedCornerShape(24.dp),
-                    color = if (unlocked) LeksinPrimary else Color(0xFFE5E5E5),
-                    shadowElevation = 2.dp
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Row(
+                    Text(
+                        text = "Collections",
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 22.sp
+                        ),
+                        color = LeksinPrimary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(Spacing.xl))
+
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(Spacing.md)
+            ) {
+                items(cats) { cat ->
+                    val unlocked = CatCollectionPrefs.isUnlocked(context, cat.stageId)
+
+                    Surface(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(Spacing.lg),
-                        verticalAlignment = Alignment.CenterVertically
+                            .clickable(enabled = !unlocked) {
+                                if (!unlocked) {
+                                    lockedCatToInspect = cat
+                                }
+                            },
+                        shape = RoundedCornerShape(24.dp),
+                        color = if (unlocked) LeksinPrimary else Color(0xFFE5E5E5),
+                        shadowElevation = 2.dp
                     ) {
-                        // Cat Avatar
-                        Surface(
-                            modifier = Modifier.size(64.dp),
-                            shape = CircleShape,
-                            color = Color.White,
-                            shadowElevation = 2.dp
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(Spacing.lg),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier.fillMaxSize()
+                            // Cat Avatar
+                            Surface(
+                                modifier = Modifier.size(64.dp),
+                                shape = CircleShape,
+                                color = Color.White,
+                                shadowElevation = 2.dp
                             ) {
-                                Image(
-                                    painter = painterResource(
-                                        id = if (unlocked) cat.unmaskedImageRes else R.drawable.unknowncat
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.fillMaxSize()
+                                ) {
+                                    Image(
+                                        painter = painterResource(
+                                            id = if (unlocked) cat.unmaskedImageRes else R.drawable.unknowncat
+                                        ),
+                                        contentDescription = cat.name,
+                                        modifier = Modifier.size(52.dp)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.width(Spacing.lg))
+
+                            Column(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = if (unlocked) cat.name else "???",
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontWeight = FontWeight.Bold
                                     ),
-                                    contentDescription = cat.name,
-                                    modifier = Modifier.size(52.dp)
+                                    color = if (unlocked) Color.White else Color.DarkGray
+                                )
+                                Spacer(modifier = Modifier.height(Spacing.xs))
+                                Text(
+                                    text = if (unlocked) cat.funFact else "Selesaikan Stage ${cat.stageId} dengan 3 hati penuh untuk mengadopsi kucing ini!",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (unlocked) Color.White.copy(alpha = 0.9f) else Color.Gray
                                 )
                             }
-                        }
-
-                        Spacer(modifier = Modifier.width(Spacing.lg))
-
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = if (unlocked) cat.name else "???",
-                                style = MaterialTheme.typography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                color = if (unlocked) Color.White else Color.DarkGray
-                            )
-                            Spacer(modifier = Modifier.height(Spacing.xs))
-                            Text(
-                                text = if (unlocked) cat.funFact else "Selesaikan Stage ${cat.stageId} dengan 3 hati penuh untuk mengadopsi kucing ini!",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = if (unlocked) Color.White.copy(alpha = 0.9f) else Color.Gray
-                            )
                         }
                     }
                 }
@@ -179,7 +197,7 @@ fun ChildCollectionsTab(
         }
     }
 
-    // Locked Cat Inspection Dialog
+    // Cat lock
     if (lockedCatToInspect != null) {
         val cat = lockedCatToInspect!!
         AlertDialog(

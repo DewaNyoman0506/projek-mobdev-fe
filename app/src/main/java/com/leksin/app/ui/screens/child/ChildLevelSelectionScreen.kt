@@ -35,8 +35,8 @@ data class LevelStage(
     val id: String,
     val label: String,
     val isUnlocked: Boolean,
-    val xOffsetFraction: Float, // -0.8f to 0.8f for zigzag
-    val yFraction: Float        // 0.0f (top) to 1.0f (bottom)
+    val xOffsetFraction: Float,
+    val yFraction: Float
 )
 
 @Composable

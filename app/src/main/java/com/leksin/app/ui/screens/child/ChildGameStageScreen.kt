@@ -111,6 +111,8 @@ fun ChildGameStageScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+
     // Load config template dynamically based on stageId (A, B, C, D)
     val config = remember(stageId) { getStageConfig(stageId) }
     val targetWord = config.targetWord
@@ -390,6 +392,8 @@ fun ChildGameStageScreen(
                     }
 
                     if (currentWord.equals(targetWord, ignoreCase = true)) {
+                        CatCollectionPrefs.unlockStage(context, config.stageId)
+                        StreakManager.recordDailyActivity(context)
                         showWinDialog = true
                     } else {
                         hearts--

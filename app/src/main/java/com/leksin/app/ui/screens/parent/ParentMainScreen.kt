@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.ChildCare
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PieChart
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,8 +25,8 @@ fun ParentMainScreen(
 
     val navItems = listOf(
         LeksinNavItem("Home", Icons.Filled.Home),
-        LeksinNavItem("Statistics", Icons.AutoMirrored.Filled.List), // ganti icon
-        LeksinNavItem("Child", Icons.Filled.DateRange), // ganti icon
+        LeksinNavItem("Statistics", Icons.Filled.PieChart),
+        LeksinNavItem("Child", Icons.Filled.ChildCare),
         LeksinNavItem("Settings", Icons.Filled.Settings)
     )
 

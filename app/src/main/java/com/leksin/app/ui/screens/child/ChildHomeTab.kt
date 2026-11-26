@@ -90,7 +90,7 @@ fun ChildHomeTab(
 
             Spacer(modifier = Modifier.height(Spacing.lg))
 
-            // Play Stages Card Button (uses play.jpg cropped uniformly)
+            // Play Stages Card Button (uses play.jpg with "Play" text overlay)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -110,16 +110,31 @@ fun ChildHomeTab(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.play),
-                        contentDescription = "Peta Permainan (Mari Bermain!)",
+                        contentDescription = "Play",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Black.copy(alpha = 0.25f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Play",
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                fontWeight = FontWeight.Black,
+                                fontSize = 36.sp
+                            ),
+                            color = Color.White
+                        )
+                    }
                 }
             }
 
             Spacer(modifier = Modifier.height(Spacing.xl))
 
-            // OCR AI Scan Card Button (uses write.jpg cropped uniformly)
+            // OCR AI Scan Card Button (uses write.jpg with "Write" text overlay)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -139,10 +154,25 @@ fun ChildHomeTab(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.write),
-                        contentDescription = "Bantuan Belajar OCR AI",
+                        contentDescription = "Write",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Black.copy(alpha = 0.25f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Write",
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                fontWeight = FontWeight.Black,
+                                fontSize = 36.sp
+                            ),
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }

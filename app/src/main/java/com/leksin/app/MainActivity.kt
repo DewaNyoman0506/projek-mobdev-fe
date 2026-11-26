@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.leksin.app.ui.screens.auth.AuthFlow
 import com.leksin.app.ui.screens.child.ChildMainScreen
 import com.leksin.app.ui.screens.parent.ParentChildTab
 import com.leksin.app.ui.screens.parent.ParentMainScreen
@@ -23,13 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LeksinTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // Test Child Dashboard & Level Selection (Stages A, B, C, D)
-                    ChildMainScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        onStartGameSession = { stage ->
-                            // TODO: Launch game session for stage A, B, C, or D
-                        }
-                    )
+                    AuthFlow(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

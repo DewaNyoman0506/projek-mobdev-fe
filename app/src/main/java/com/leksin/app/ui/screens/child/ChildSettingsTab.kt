@@ -1,7 +1,6 @@
 package com.leksin.app.ui.screens.child
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,11 +28,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.leksin.app.R
+import com.leksin.app.ui.components.LeksinPillButton
 import com.leksin.app.ui.theme.LeksinPrimary
 import com.leksin.app.ui.theme.Spacing
 
 @Composable
 fun ChildSettingsTab(
+    onLogoutClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var musicVolume by remember { mutableFloatStateOf(0.7f) }
@@ -130,6 +131,15 @@ fun ChildSettingsTab(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(Spacing.xxl))
+
+            // Logout Button
+            LeksinPillButton(
+                text = "Keluar / Logout",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onLogoutClick
+            )
         }
     }
 }

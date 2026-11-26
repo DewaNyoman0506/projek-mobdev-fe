@@ -103,8 +103,12 @@ fun AuthFlow(
             if (state.role.equals("CHILD", ignoreCase = true)) {
                 ChildMainScreen(
                     modifier = modifier,
-                    onStartGameSession = {
+                    onStartGameSession = { stage ->
                         // TODO: Handle start game session
+                    },
+                    onLogoutClick = {
+                        viewModel.logout()
+                        viewModel.navigateTo(AuthScreenState.RoleSelection)
                     }
                 )
             } else {

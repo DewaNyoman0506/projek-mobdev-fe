@@ -133,4 +133,8 @@ class AuthViewModel(context: Context) : ViewModel() {
     fun clearError() {
         errorMessage = null
     }
+
+    fun logout() {
+        repository.logout()
+    }
 }

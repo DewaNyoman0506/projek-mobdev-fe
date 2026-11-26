@@ -21,6 +21,7 @@ import com.leksin.app.ui.components.LeksinNavigationBar
 @Composable
 fun ChildMainScreen(
     onStartGameSession: (String) -> Unit = {},
+    onLogoutClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -73,7 +74,7 @@ fun ChildMainScreen(
                         )
                         1 -> ChildCollectionsTab()
                         2 -> ChildStreaksTab()
-                        3 -> ChildSettingsTab()
+                        3 -> ChildSettingsTab(onLogoutClick = onLogoutClick)
                     }
                 }
                 LeksinNavigationBar(

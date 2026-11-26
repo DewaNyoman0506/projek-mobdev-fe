@@ -16,9 +16,7 @@ import kotlin.coroutines.cancellation.CancellationException
 object ApiClient {
 
     const val BASE_URL_EMULATOR = "http://10.0.2.2:8080/"
-
-    // TODO: Plis ganti dengan domain Render yang sebenarnya, lalu samakan di build.gradle.kts
-    const val BASE_URL_PRODUCTION = "https://leksin-backend.onrender.com/"
+    const val BASE_URL_PRODUCTION = "https://leksin-api.duckdns.org/"
 
     /** Default dari BuildConfig: debug -> emulator, release -> production. */
     @Volatile

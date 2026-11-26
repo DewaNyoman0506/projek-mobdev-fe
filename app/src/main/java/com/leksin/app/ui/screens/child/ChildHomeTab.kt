@@ -90,10 +90,11 @@ fun ChildHomeTab(
 
             Spacer(modifier = Modifier.height(Spacing.lg))
 
+            // Play Stages Card Button (uses play.jpg cropped uniformly)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(190.dp)
+                    .height(200.dp)
                     .clip(RoundedCornerShape(24.dp))
                     .clickable(onClick = onPlayClick),
                 color = LeksinPrimary,
@@ -102,37 +103,27 @@ fun ChildHomeTab(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(12.dp)
+                        .padding(10.dp)
                         .clip(RoundedCornerShape(18.dp))
                         .background(LeksinSecondary),
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "🗺️ [ Peta Permainan ]",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold
-                            ),
-                            color = LeksinPrimary
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = "Ketuk untuk Mulai Bermain",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.play),
+                        contentDescription = "Peta Permainan (Mari Bermain!)",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(Spacing.xl))
 
+            // OCR AI Scan Card Button (uses write.jpg cropped uniformly)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp)
+                    .height(200.dp)
                     .clip(RoundedCornerShape(24.dp))
                     .clickable(onClick = onScanClick),
                 color = LeksinPrimary,
@@ -141,28 +132,17 @@ fun ChildHomeTab(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(12.dp)
+                        .padding(10.dp)
                         .clip(RoundedCornerShape(18.dp))
                         .background(LeksinSecondary),
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "📷 🤖 [ Bantuan Belajar OCR ]",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold
-                            ),
-                            color = LeksinPrimary
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = "Pindai Tulisan Tangan Huruf Anak dengan Kamera",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.write),
+                        contentDescription = "Bantuan Belajar OCR AI",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
                 }
             }
         }

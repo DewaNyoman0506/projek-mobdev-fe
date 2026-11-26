@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.leksin.app.ui.screens.child.ChildMainScreen
+import com.leksin.app.ui.screens.parent.ParentMainScreen
 import com.leksin.app.ui.theme.LeksinTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,5 +41,13 @@ fun ChildMainPreview() {
         ChildMainScreen(
             onStartGameSession = {}
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ParentMainPreview() {
+    LeksinTheme {
+        ParentMainScreen()
     }
 }

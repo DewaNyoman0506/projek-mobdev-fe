@@ -50,7 +50,7 @@ fun ChildCollectionsTab(
         modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFFDFBEF))
-            .padding(Spacing.xxl),
+            .padding(Spacing.xl),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header title card
@@ -77,7 +77,7 @@ fun ChildCollectionsTab(
             }
         }
 
-        Spacer(modifier = Modifier.height(Spacing.xxl))
+        Spacer(modifier = Modifier.height(Spacing.xl))
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),

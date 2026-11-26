@@ -34,7 +34,7 @@ fun ChildHomeTab(
         modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFFDFBEF))
-            .padding(Spacing.xxl),
+            .padding(Spacing.xl),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header title card
@@ -61,11 +61,11 @@ fun ChildHomeTab(
             }
         }
 
-        Spacer(modifier = Modifier.height(Spacing.xxl))
+        Spacer(modifier = Modifier.height(Spacing.xl))
 
         Text(
             text = "Mari Bermain!",
-            style = MaterialTheme.typography.headlineMedium.copy(
+            style = MaterialTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.Bold
             ),
             color = MaterialTheme.colorScheme.onSurface
@@ -78,16 +78,16 @@ fun ChildHomeTab(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(280.dp)
-                .clip(RoundedCornerShape(28.dp))
+                .clip(RoundedCornerShape(24.dp))
                 .clickable(onClick = onPlayClick),
             color = LeksinPrimary,
-            tonalElevation = 4.dp
+            shadowElevation = 2.dp
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(12.dp)
-                    .clip(RoundedCornerShape(20.dp))
+                    .clip(RoundedCornerShape(18.dp))
                     .background(LeksinSecondary),
                 contentAlignment = Alignment.Center
             ) {

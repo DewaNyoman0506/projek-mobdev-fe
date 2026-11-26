@@ -20,11 +20,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             LeksinTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // Langsung ke Halaman Anak (Child Dashboard) untuk testing tanpa login
+                    // Test Child Dashboard & Level Selection (Stages A, B, C, D)
                     ChildMainScreen(
                         modifier = Modifier.padding(innerPadding),
-                        onStartGameSession = {
-                            // TODO: Mulai sesi permainan
+                        onStartGameSession = { stage ->
+                            // TODO: Launch game session for stage A, B, C, or D
                         }
                     )
                 }

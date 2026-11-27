@@ -11,7 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface GameApi {
-    @POST("$GAMES_PATH/session")
+    @POST("$GAMES_PATH/sessions")
     suspend fun recordGameSession(
         @Path("childId") childId: String,
         @Body request: GameSessionRequest,

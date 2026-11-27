@@ -11,3 +11,9 @@ sealed class NetworkResult<out T> {
     ) : NetworkResult<Nothing>()
     data class Exception(val throwable: Throwable) : NetworkResult<Nothing>()
 }
+
+fun <T, R> NetworkResult<T>.map(transform: (T) -> R): NetworkResult<R> = when (this) {
+    is NetworkResult.Success -> NetworkResult.Success(transform(data))
+    is NetworkResult.Error -> this
+    is NetworkResult.Exception -> this
+}

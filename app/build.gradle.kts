@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://leksin-api.duckdns.org/\"")
+        buildConfigField("String", "BASE_URL", "\"http://localhost:8080/api/\"")
     }
 
     buildTypes {

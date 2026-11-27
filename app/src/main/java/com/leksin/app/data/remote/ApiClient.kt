@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.leksin.app.BuildConfig
 import com.leksin.app.data.local.TokenManager
-import com.leksin.app.data.remote.model.ProblemDetail
+import com.leksin.app.data.model.ProblemDetail
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
@@ -15,9 +15,6 @@ import kotlin.coroutines.cancellation.CancellationException
 
 object ApiClient {
 
-    const val BASE_URL_EMULATOR = "http://10.0.2.2:8080/"
-    const val BASE_URL_PRODUCTION = "https://leksin-api.duckdns.org/"
-
     /** Default dari BuildConfig: debug -> emulator, release -> production. */
     @Volatile
     var currentBaseUrl: String = BuildConfig.BASE_URL
@@ -26,21 +23,22 @@ object ApiClient {
     private val lock = Any()
     private val gson = Gson()
 
-    @Volatile private var apiService: LeksinApi? = null
     @Volatile private var tokenManagerInstance: TokenManager? = null
+    @Volatile private var retrofitInstance: Retrofit? = null
+
+    fun <T> createService(context: Context, service: Class<T>): T =
+        retrofit(context).create(service)
+
+    private fun retrofit(context: Context): Retrofit =
+        retrofitInstance ?: synchronized(lock) {
+            retrofitInstance ?: buildRetrofit(context).also { retrofitInstance = it }
+        }
 
     /** Satu instance TokenManager dipakai bersama oleh interceptor dan repository. */
     fun tokenManager(context: Context): TokenManager =
         tokenManagerInstance ?: synchronized(lock) {
             tokenManagerInstance
                 ?: TokenManager(context.applicationContext).also { tokenManagerInstance = it }
-        }
-
-    fun getApiService(context: Context): LeksinApi =
-        apiService ?: synchronized(lock) {
-            apiService ?: buildRetrofit(context).create(LeksinApi::class.java).also {
-                apiService = it
-            }
         }
 
     /**
@@ -58,7 +56,7 @@ object ApiClient {
     fun setBaseUrl(url: String) {
         synchronized(lock) {
             currentBaseUrl = if (url.endsWith("/")) url else "$url/"
-            apiService = null
+            retrofitInstance = null
         }
     }
 

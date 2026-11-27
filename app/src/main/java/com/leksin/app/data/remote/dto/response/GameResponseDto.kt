@@ -34,7 +34,7 @@ data class GameModeProgressResponse(
 )
 
 // Extension Functions to Convert to Domain Model
-fun GameHistoryResponse.toDomain(): GameHistory {
+fun GameHistoryResponse.toModel(): GameHistory {
     return GameHistory(
         id = this.id,
         gameType = this.gameType,
@@ -47,7 +47,7 @@ fun GameHistoryResponse.toDomain(): GameHistory {
     )
 }
 
-fun GameProgressResponse.toDomain(): GameProgress {
+fun GameProgressResponse.toModel(): GameProgress {
     return GameProgress(
         childId = this.childId,
         highestLevel = this.highestLevel,
@@ -58,7 +58,7 @@ fun GameProgressResponse.toDomain(): GameProgress {
     )
 }
 
-fun GameModeProgressResponse.toDomain(): GameModeProgress {
+fun GameModeProgressResponse.toModel(): GameModeProgress {
     return GameModeProgress(
         childId = this.childId,
         gameType = this.gameType,

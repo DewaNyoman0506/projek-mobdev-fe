@@ -41,25 +41,6 @@ object ApiClient {
                 ?: TokenManager(context.applicationContext).also { tokenManagerInstance = it }
         }
 
-    /**
-     * Khusus debug: arahin ke backend di LAN, mis. setCustomLanIp("192.168.1.50")..
-     */
-    fun setCustomLanIp(ipAddress: String, port: Int = 8080) {
-        if (!BuildConfig.DEBUG) return
-        val cleanIp = ipAddress.trim()
-            .removePrefix("http://")
-            .removePrefix("https://")
-            .removeSuffix("/")
-        setBaseUrl("http://$cleanIp:$port/")
-    }
-
-    fun setBaseUrl(url: String) {
-        synchronized(lock) {
-            currentBaseUrl = if (url.endsWith("/")) url else "$url/"
-            retrofitInstance = null
-        }
-    }
-
     private fun buildRetrofit(context: Context): Retrofit {
         val tokenManager = tokenManager(context)
 

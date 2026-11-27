@@ -26,7 +26,7 @@ interface ChildApi {
     suspend fun getChildren(): List<ChildResponse>
 
     @POST("parent/children")
-    suspend fun register(
+    suspend fun createChild(
         @Body request: ChildCreateRequest,
     ): ChildResponse
 }

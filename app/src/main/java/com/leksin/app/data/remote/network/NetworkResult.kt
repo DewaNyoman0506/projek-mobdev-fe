@@ -1,6 +1,6 @@
 package com.leksin.app.data.remote.network
 
-import com.leksin.app.data.model.ProblemDetail
+import com.leksin.app.domain.model.ProblemDetail
 
 sealed class NetworkResult<out T> {
     data class Success<out T>(val data: T) : NetworkResult<T>()

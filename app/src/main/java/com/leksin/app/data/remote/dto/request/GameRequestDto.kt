@@ -1,7 +1,7 @@
 package com.leksin.app.data.remote.dto.request
 
 import com.google.gson.annotations.SerializedName
-import com.leksin.app.data.model.game.GameType
+import com.leksin.app.domain.model.game.GameType
 
 data class GameSessionRequest(
     @SerializedName("gameType") val gameType: GameType,

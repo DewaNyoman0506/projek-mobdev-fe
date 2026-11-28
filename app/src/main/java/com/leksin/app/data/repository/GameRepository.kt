@@ -1,6 +1,6 @@
 package com.leksin.app.data.repository
 
-import com.leksin.app.data.model.game.GameType
+import com.leksin.app.domain.model.game.GameType
 import com.leksin.app.data.remote.network.NetworkResult
 import com.leksin.app.data.remote.datasource.GameRemoteDataSource
 import com.leksin.app.data.remote.dto.request.GameSessionRequest

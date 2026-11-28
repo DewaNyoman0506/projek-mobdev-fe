@@ -1,4 +1,4 @@
-package com.leksin.app.data.model
+package com.leksin.app.domain.model
 
 data class Parent(
     val id: String,

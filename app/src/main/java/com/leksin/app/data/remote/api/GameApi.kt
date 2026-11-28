@@ -1,6 +1,6 @@
 package com.leksin.app.data.remote.api
 
-import com.leksin.app.data.model.game.GameType
+import com.leksin.app.domain.model.game.GameType
 import com.leksin.app.data.remote.dto.request.GameSessionRequest
 import com.leksin.app.data.remote.dto.response.GameHistoryResponse
 import com.leksin.app.data.remote.dto.response.GameModeProgressResponse

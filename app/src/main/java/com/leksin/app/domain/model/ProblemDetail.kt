@@ -1,4 +1,4 @@
-package com.leksin.app.data.model
+package com.leksin.app.domain.model
 
 import com.google.gson.annotations.SerializedName
 

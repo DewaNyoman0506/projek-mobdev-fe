@@ -1,7 +1,7 @@
 package com.leksin.app.data.remote.network
 
 import com.google.gson.Gson
-import com.leksin.app.data.model.ProblemDetail
+import com.leksin.app.domain.model.ProblemDetail
 import retrofit2.HttpException
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException

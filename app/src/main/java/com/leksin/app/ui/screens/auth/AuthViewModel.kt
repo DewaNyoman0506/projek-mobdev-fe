@@ -6,9 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leksin.app.data.remote.NetworkResult
-import com.leksin.app.data.repository.LeksinRepository
+import com.leksin.app.data.remote.network.NetworkResult
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 sealed class AuthScreenState {
     object RoleSelection : AuthScreenState()
@@ -18,10 +18,9 @@ sealed class AuthScreenState {
     data class Success(val role: String, val username: String) : AuthScreenState()
 }
 
-class AuthViewModel(context: Context) : ViewModel() {
+class AuthViewModel @Inject constructor(
 
-    private val repository = LeksinRepository(context)
-
+) : ViewModel() {
     var currentScreen by mutableStateOf<AuthScreenState>(AuthScreenState.RoleSelection)
         private set
 

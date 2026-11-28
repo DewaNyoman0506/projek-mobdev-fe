@@ -1,4 +1,4 @@
-package com.leksin.app.data.model.game
+package com.leksin.app.domain.model.game
 
 data class GameModeProgress(
     val childId: String,

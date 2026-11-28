@@ -1,25 +1,26 @@
 package com.leksin.app.data.repository
 
 import com.leksin.app.data.local.TokenManager
-import com.leksin.app.data.remote.network.NetworkResult
+import com.leksin.app.data.mapper.toAppResult
 import com.leksin.app.data.remote.datasource.AuthRemoteDataSource
+import com.leksin.app.domain.common.AppResult
+import com.leksin.app.domain.repository.AuthRepository
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val remoteDataSource: AuthRemoteDataSource,
     private val tokenManager: TokenManager,
-) {
+) : AuthRepository {
 
-    suspend fun logout(): NetworkResult<Unit> {
+    override suspend fun logout(): AppResult<Unit> {
         val result = remoteDataSource.logout()
 
-        // Sesi lokal tetap diakhiri meskipun request logout gagal.
         tokenManager.clearSession()
 
-        return result
+        return result.toAppResult()
     }
 
-    fun isLoggedIn(): Boolean {
+    override fun isLoggedIn(): Boolean {
         return tokenManager.isLoggedIn()
     }
 }

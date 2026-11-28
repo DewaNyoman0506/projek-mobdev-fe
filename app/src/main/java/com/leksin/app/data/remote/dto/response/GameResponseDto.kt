@@ -1,9 +1,6 @@
 package com.leksin.app.data.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
-import com.leksin.app.domain.model.game.GameHistory
-import com.leksin.app.domain.model.game.GameModeProgress
-import com.leksin.app.domain.model.game.GameProgress
 import com.leksin.app.domain.model.game.GameType
 
 data class GameHistoryResponse(

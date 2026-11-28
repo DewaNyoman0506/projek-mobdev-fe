@@ -11,6 +11,15 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ChildApi {
+
+    @POST("parent/children")
+    suspend fun createChild(
+        @Body request: ChildCreateRequest,
+    ): ChildResponse
+
+    @GET("parent/children")
+    suspend fun getChildren(): List<ChildResponse>
+
     @PUT("parent/children/{childId}")
     suspend fun updateChildById(
         @Path("childId") childId: String,
@@ -21,12 +30,4 @@ interface ChildApi {
     suspend fun deleteChildById(
         @Path("childId") childId: String,
     )
-
-    @GET("parent/children")
-    suspend fun getChildren(): List<ChildResponse>
-
-    @POST("parent/children")
-    suspend fun createChild(
-        @Body request: ChildCreateRequest,
-    ): ChildResponse
 }

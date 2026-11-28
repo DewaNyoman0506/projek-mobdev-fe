@@ -17,3 +17,12 @@ data class ParentUpdateRequest(
     @SerializedName("username") val username: String? = null,
     @SerializedName("email") val email: String? = null,
 )
+
+data class ParentOtpRequest(
+    @SerializedName("username") val username: String,
+)
+
+data class ParentOtpVerifyRequest(
+    @SerializedName("username") val username: String,
+    @SerializedName("code") val code: String,
+)

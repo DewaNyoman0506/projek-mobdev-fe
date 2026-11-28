@@ -12,6 +12,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ParentApi {
+
     @POST("parent/register")
     suspend fun register(
         @Body request: ParentRegisterRequest,
@@ -22,13 +23,13 @@ interface ParentApi {
         @Body request: ParentLoginRequest,
     ): AuthResponse
 
-    @PATCH("parent/profile")
-    suspend fun updateProfile(
-        @Body request: ParentUpdateRequest,
-    ): ParentResponse
-
     @GET("parent/{username}")
     suspend fun getProfile(
         @Path("username") username: String,
+    ): ParentResponse
+
+    @PATCH("parent/profile")
+    suspend fun updateProfile(
+        @Body request: ParentUpdateRequest,
     ): ParentResponse
 }

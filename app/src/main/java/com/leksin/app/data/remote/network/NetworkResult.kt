@@ -1,4 +1,4 @@
-package com.leksin.app.data.remote
+package com.leksin.app.data.remote.network
 
 import com.leksin.app.data.model.ProblemDetail
 
